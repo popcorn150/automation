@@ -22,4 +22,11 @@ test.only('working with inputs', async ({ page }) => {
   await page.type('#user_password', 'bananapassword')
 
   await page.click('text=Sign in')
+  const errorMessage = page.locator('.alert-error')
+  await expect(errorMessage).toContainText('Login and/or password are wrong.')
+})
+
+test.only('Assertions', async ({ page }) => {
+  await page.goto('https://www.example.com')
+  await expect(page).toHaveURL('https://www.example.com')
 })
