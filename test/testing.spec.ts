@@ -15,7 +15,7 @@ test('clicking on elements', async ({ page }) => {
   await expect(errorMessage).toContainText('Login and/or password are wrong.')
 })
 
-test.only('working with inputs', async ({ page }) => {
+test('working with inputs', async ({ page }) => {
   await page.goto('http://zero.webappsecurity.com/index.html')
   await page.click('#signin_button')
   await page.type('#user_login', 'bananaflakes')
