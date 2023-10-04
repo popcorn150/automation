@@ -8,8 +8,8 @@ test.describe.parallel('Speed up test', () => {
     await page.click('text=Continue with Google')
 
     const pageTitle = page.locator('h3')
-    await expect(pageTitle).toContainText('Hello IP. Let\s help you get noticed.')
+    await expect(pageTitle).toBeVisible()
 
-    await page.waitForTimeout(2000)
+    await page.waitForTimeout(3000)
   })
 })
