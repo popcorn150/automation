@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
 
 test.describe.parallel('First test suite', () => {
-  test('something quick', async ({ page }) => {
+  test('something quick @Tagging', async ({ page }) => {
     await page.goto('https://www.example.com')
     const pageTitle = await page.locator('h1')
     await expect(pageTitle).toContainText('Example Domain')
@@ -18,7 +18,7 @@ test.describe.parallel('First test suite', () => {
 })
 
 test.describe.parallel('Another test suite', () => {
-  test('working with inputs', async ({ page }) => {
+  test('working with inputs @Tagging', async ({ page }) => {
     await page.goto('http://zero.webappsecurity.com/index.html')
     await page.click('#signin_button')
     await page.type('#user_login', 'bananaflakes')
