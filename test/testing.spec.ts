@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
 
 test.describe.parallel('running multiple tests', () => {
-  test('something quick', async ({ page }) => {
+  test.only('something quick', async ({ page }) => {
     await page.goto('https://www.example.com')
     const pageTitle = await page.locator('h1')
     await expect(pageTitle).toContainText('Example Domain')
@@ -16,7 +16,7 @@ test.describe.parallel('running multiple tests', () => {
     await expect(errorMessage).toContainText('Login and/or password are wrong.')
   })
 
-  test.skip('working with inputs', async ({ page }) => {
+  test('working with inputs', async ({ page }) => {
     await page.goto('http://zero.webappsecurity.com/index.html')
     await page.click('#signin_button')
     await page.type('#user_login', 'bananaflakes')
@@ -27,7 +27,7 @@ test.describe.parallel('running multiple tests', () => {
     await expect(errorMessage).toContainText('Login and/or password are wrong.')
   })
 
-  test('Assertions', async ({ page }) => {
+  test.only('Assertions', async ({ page }) => {
     await page.goto('https://www.example.com')
     await expect(page).toHaveURL('https://www.example.com')
   })
