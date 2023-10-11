@@ -40,10 +40,10 @@ test.describe.parallel('Scraping matchingday landing page', () => {
 test.describe.parallel.only('Signing up for matchingday', () => {
   test('onboarding', async ({ page }) => {
     await page.goto('https://dotunpeters.matchingday.com/')
+    //continue with google
     await page.click('#__next > div > header > nav > ul > li:nth-child(5) > a')
-
-    await page.click('#__next > div > main > div.landingLayout_container___2Cg_ > div > button')
-    await page.click('//*[@id="view_container"]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div/div/ul/li[3]/div')
+    
+    await page.waitForTimeout(1000)
 
     await page.type('//*[@id="identifierId"]', 'david.damian@10hourlabs.com', {delay: 100})
     await page.click('#identifierNext > div > button > div.VfPpkd-RLmnJb')
