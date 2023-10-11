@@ -1,0 +1,9 @@
+##
+Using config method to run test
+##
+[npx playwright test --config=playwright.config.ts --project=firefox]
+
+##
+Using config method to run specific test
+##
+[npx playwright test test/matchingday.spec.ts --config=playwright.config.ts --project=firefox]
