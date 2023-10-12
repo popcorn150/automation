@@ -12,7 +12,9 @@ test.describe.parallel('Scraping matchingday landing page', () => {
     await page.goto('https://dotunpeters.matchingday.com/')
     await page.click('//*[@id="__next"]/div/header/nav/ul/li[2]/a')
 
-    await expect(page).toHaveURL('https://dotunpeters.matchingday.com/browse-profiles?filter=in-usa')
+    await expect(page).toHaveURL(
+      'https://dotunpeters.matchingday.com/browse-profiles?filter=in-usa',
+    )
   })
   test('faq page', async ({ page }) => {
     await page.goto('https://dotunpeters.matchingday.com/')
@@ -40,15 +42,41 @@ test.describe.parallel('Scraping matchingday landing page', () => {
 test.describe.parallel.only('Signing up for matchingday', () => {
   test('onboarding', async ({ page }) => {
     await page.goto('https://dotunpeters.matchingday.com/')
-    //continue with google
+    //create an ip profile
     await page.click('#__next > div > header > nav > ul > li:nth-child(5) > a')
-    
-    await page.waitForTimeout(1000)
+    //continue with google
+    await page
+      .locator(
+        '#__next > div > main > div.landingLayout_container___2Cg_ > div > button > span',
+      )
+      .click({ force: true })
+    await page.waitForTimeout(2000)
 
-    await page.type('//*[@id="identifierId"]', 'david.damian@10hourlabs.com', {delay: 100})
-    await page.click('#identifierNext > div > button > div.VfPpkd-RLmnJb')
+    //email
+    await page
+      .locator('//*[@id="identifierId"]')
+      .type('david.damian@10hourlabs.com', { delay: 200 })
+    await page.getByRole('button', { name: 'Next' }).click({ force: true })
 
-    const pageTitle = page.locator('h1')
-    await expect(pageTitle).toBeVisible()
+    //password
+    await page.waitForTimeout(2000)
+    await page
+      .locator('//*[@id="password"]/div[1]/div/div[1]/input')
+      .type('D3YS6%gy', { delay: 200 })
+    await page.getByRole('button', { name: 'Next' }).click({ force: true })
+
+    //redirecting...
+    await page.waitForTimeout(2000)
+
+    //step0
+    await page.getByRole('button', {name: 'Let\s Begin'}).click({force: true})
+
+    // //step1
+    // await page.getByRole('textbox').press('Command+A')
+    // await page.getByRole('textbox').press('Command+X')
+    // await page.getByRole('textbox').type('Testing', {delay: 100})
+
+    const element = page.locator('h1')
+    await expect(element).not.toBeVisible()
   })
 })
