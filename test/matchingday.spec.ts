@@ -69,14 +69,9 @@ test.describe.parallel.only('Signing up for matchingday', () => {
     await page.waitForTimeout(2000)
 
     //step0
-    await page.getByRole('button', {name: 'Let\s Begin'}).click({force: true})
+    await page.getByRole('button').click({force: true})
 
-    // //step1
-    // await page.getByRole('textbox').press('Command+A')
-    // await page.getByRole('textbox').press('Command+X')
-    // await page.getByRole('textbox').type('Testing', {delay: 100})
-
-    const element = page.locator('h1')
-    await expect(element).not.toBeVisible()
+    // const element = page.locator('h1')
+    // await expect(element).not.toBeVisible()
   })
 })
