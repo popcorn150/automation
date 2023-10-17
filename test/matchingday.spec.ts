@@ -113,4 +113,42 @@ test.describe.parallel.only('Building the profile', () => {
     // const element = page.locator('h3')
     // await expect(element).toHaveText('Matching Day')
   })
+
+  test('Basic - About your journey', async ({ page }) => {
+    await page.goto('https://dotunpeters.matchingday.com/')
+    await page.getByRole('button').click()
+    await page.getByRole('link', { name: 'Sign in' }).click()
+    await page
+      .getByRole('button', { name: 'Google Icon Continue with Google' })
+      .click()
+    await page.getByLabel('Email or phone').click()
+    await page.getByLabel('Email or phone').fill('david.damian@10hourlabs.com')
+    await page.getByRole('button', { name: 'Next' }).click()
+    await page.getByLabel('Enter your password').click()
+    await page.getByLabel('Enter your password').fill('D3YS6%gy')
+    await page.getByRole('button', { name: 'Next' }).click()
+    await page.waitForTimeout(1000)
+
+    // About your journey
+    await page.getByRole('button', { name: 'Edit' }).click()
+
+    // Type of surrogacy
+    // mantine-Input-input mantine-Select-input mantine-1cn2mlo (incase the selectorS doesn't works)
+    await page.locator('#mantine-15nce71ep').selectOption('Traditional')
+
+    // Type of journey
+    await page.locator('#mantine-avyop31kl').selectOption('First Child')
+
+    // How long have you been looking for a surrogate
+    await page.locator('#mantine-0ti71hkpn').selectOption('1 to 3 years')
+
+    // Egg donor required
+    await page.locator('#mantine-eqs2h73gz').selectOption('Yes')
+
+    // Embryo Information
+    await page.getByRole('textbox').fill('Imma give ya my embryo info later')
+
+    //saving...
+    await page.waitForTimeout(10000)
+  })
 })
