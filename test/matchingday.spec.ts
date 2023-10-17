@@ -77,7 +77,7 @@ test.describe.parallel('Signing up for matchingday', () => {
 })
 
 test.describe.parallel.only('Building the profile', () => {
-  test('profiling', async ({ page }) => {
+  test('Basic - Introduction', async ({ page }) => {
     await page.goto('https://dotunpeters.matchingday.com/')
     await page.getByRole('button').click()
     await page.getByRole('link', { name: 'Sign in' }).click()
@@ -90,8 +90,24 @@ test.describe.parallel.only('Building the profile', () => {
     await page.getByLabel('Enter your password').click()
     await page.getByLabel('Enter your password').fill('D3YS6%gy')
     await page.getByRole('button', { name: 'Next' }).click()
+    await page.waitForTimeout(1000)
+    await page
+      .getByRole('button', { name: ' Start building your profile' })
+      .click()
 
-    //redirecting...
+    // Introduction
+    const textArea = page.locator(
+      '//*[@id="mantine-gh5mw5f7c-panel-basic"]/div[2]/div[2]/textarea',
+    )
+    await textArea.click({ force: true })
+    await page
+      .getByLabel(
+        'Write a brief introduction so that Surrogates can quickly get to know you.  The limit is 500 characters.',
+      )
+      .fill('Hi there! This is my introduction')
+    await page.getByRole('button', { name: 'Save' }).click()
+
+    //saving...
     await page.waitForTimeout(10000)
 
     // const element = page.locator('h3')
