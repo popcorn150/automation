@@ -39,7 +39,7 @@ test.describe.parallel('Scraping matchingday landing page', () => {
   })
 })
 
-test.describe.parallel.only('Signing up for matchingday', () => {
+test.describe.parallel('Signing up for matchingday', () => {
   test('onboarding', async ({ page }) => {
     await page.goto('https://dotunpeters.matchingday.com/')
     //create an ip profile
@@ -69,9 +69,32 @@ test.describe.parallel.only('Signing up for matchingday', () => {
     await page.waitForTimeout(2000)
 
     //step0
-    await page.getByRole('button').click({force: true})
+    await page.getByRole('button').click({ force: true })
 
     // const element = page.locator('h1')
     // await expect(element).not.toBeVisible()
+  })
+})
+
+test.describe.parallel.only('Building the profile', () => {
+  test('profiling', async ({ page }) => {
+    await page.goto('https://dotunpeters.matchingday.com/')
+    await page.getByRole('button').click()
+    await page.getByRole('link', { name: 'Sign in' }).click()
+    await page
+      .getByRole('button', { name: 'Google Icon Continue with Google' })
+      .click()
+    await page.getByLabel('Email or phone').click()
+    await page.getByLabel('Email or phone').fill('david.damian@10hourlabs.com')
+    await page.getByRole('button', { name: 'Next' }).click()
+    await page.getByLabel('Enter your password').click()
+    await page.getByLabel('Enter your password').fill('D3YS6%gy')
+    await page.getByRole('button', { name: 'Next' }).click()
+
+    //redirecting...
+    await page.waitForTimeout(10000)
+
+    // const element = page.locator('h3')
+    // await expect(element).toHaveText('Matching Day')
   })
 })
