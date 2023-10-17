@@ -106,9 +106,9 @@ test.describe.parallel.only('Building the profile', () => {
         'Write a brief introduction so that Surrogates can quickly get to know you.  The limit is 500 characters.',
       )
       .fill('Hi there! This is my introduction')
-    await page.getByRole('button', { name: 'Save' }).click()
 
     //saving...
+    await page.getByRole('button', { name: 'Save' }).click()
     await page.waitForTimeout(10000)
 
     // const element = page.locator('h3')
@@ -150,6 +150,46 @@ test.describe.parallel.only('Building the profile', () => {
     await page.getByRole('textbox').fill('Imma give ya my embryo info later')
 
     //saving...
+    await page.getByRole('button', { name: 'Save' }).click()
+    await page.waitForTimeout(10000)
+  })
+
+  test('Basic - Agency Information[Yes]', async ({ page }) => {
+    await page.goto('https://dotunpeters.matchingday.com/')
+    await page.getByRole('button').click()
+    await page.getByRole('link', { name: 'Sign in' }).click()
+    await page
+      .getByRole('button', { name: 'Google Icon Continue with Google' })
+      .click()
+    await page.getByLabel('Email or phone').click()
+    await page.getByLabel('Email or phone').fill('david.damian@10hourlabs.com')
+    await page.getByRole('button', { name: 'Next' }).click()
+    await page.getByLabel('Enter your password').click()
+    await page.getByLabel('Enter your password').fill('D3YS6%gy')
+    await page.getByRole('button', { name: 'Next' }).click()
+    await page.waitForTimeout(1000)
+
+    // Agency Information
+    await page.getByRole('button', { name: 'Edit' }).click()
+
+    // Are you open to matching with an independent surrogate
+    await page.locator('#mantine-m8a3yocse').selectOption('Yes')
+
+    // Are you working with an agency
+    await page.locator('#mantine-ihyyklsw0').selectOption('Yes')
+
+    // Agency name
+    await page.getByRole('textbox').fill('Banana Agency')
+
+    // Agency address
+    await page.getByRole('textbox').type('Bahamas', { delay: 100 })
+    await page.locator('#mantine-pkc7mfbo6').selectOption('Bahamas')
+
+    // Are you open to matching with a surrogate from a different agency
+    await page.locator('#mantine-1631dx1tx').selectOption('Yes')
+
+    //saving...
+    await page.getByRole('button', { name: 'Save' }).click()
     await page.waitForTimeout(10000)
   })
 })
