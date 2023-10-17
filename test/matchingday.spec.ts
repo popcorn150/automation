@@ -100,6 +100,7 @@ test.describe.parallel.only('Building the profile', () => {
       '//*[@id="mantine-gh5mw5f7c-panel-basic"]/div[2]/div[2]/textarea',
     )
     await textArea.click({ force: true })
+    // await page.getByRole('textbox').fill('Hi there! This is my introduction')
     await page
       .getByLabel(
         'Write a brief introduction so that Surrogates can quickly get to know you.  The limit is 500 characters.',
