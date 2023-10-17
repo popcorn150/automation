@@ -258,4 +258,29 @@ test.describe.parallel.only('Building the profile', () => {
     await page.getByRole('button', { name: 'Save' }).click()
     await page.waitForTimeout(10000)
   })
+  test('Basic - Relationship[Single]', async ({ page }) => {
+    await page.goto('https://dotunpeters.matchingday.com/')
+    await page.getByRole('button').click()
+    await page.getByRole('link', { name: 'Sign in' }).click()
+    await page
+      .getByRole('button', { name: 'Google Icon Continue with Google' })
+      .click()
+    await page.getByLabel('Email or phone').click()
+    await page.getByLabel('Email or phone').fill('david.damian@10hourlabs.com')
+    await page.getByRole('button', { name: 'Next' }).click()
+    await page.getByLabel('Enter your password').click()
+    await page.getByLabel('Enter your password').fill('D3YS6%gy')
+    await page.getByRole('button', { name: 'Next' }).click()
+    await page.waitForTimeout(1000)
+
+    // Relationship
+    await page.getByRole('button', { name: 'Edit' }).click()
+
+    // Relationship status
+    await page.locator('#mantine-msepabtob').selectOption('Single')
+
+    //saving...
+    await page.getByRole('button', { name: 'Save' }).click()
+    await page.waitForTimeout(10000)
+  })
 })
