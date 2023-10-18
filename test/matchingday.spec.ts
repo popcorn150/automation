@@ -314,7 +314,7 @@ test.describe.parallel.only('Building the profile', () => {
     await page.waitForTimeout(10000)
   })
 
-  test('Basic - Your story', async ({page}) => {
+  test('Basic - Your story', async ({ page }) => {
     await page.goto('https://dotunpeters.matchingday.com/')
     await page.getByRole('button').click()
     await page.getByRole('link', { name: 'Sign in' }).click()
@@ -332,6 +332,11 @@ test.describe.parallel.only('Building the profile', () => {
     // Your story
     await page.getByRole('button', { name: 'Edit' }).click()
 
+    //Write your story
     await page.getByRole('textbox').fill('Hi there! This is my story!')
+
+    //saving...
+    await page.getByRole('button', { name: 'Save' }).click()
+    await page.waitForTimeout(10000)
   })
 })
