@@ -331,5 +331,7 @@ test.describe.parallel.only('Building the profile', () => {
 
     // Your story
     await page.getByRole('button', { name: 'Edit' }).click()
+
+    await page.getByRole('textbox').fill('Hi there! This is my story!')
   })
 })
