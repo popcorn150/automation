@@ -77,7 +77,7 @@ test.describe.parallel('Signing up for matchingday', () => {
 })
 
 test.describe.parallel('Building the profile', () => {
-  test.only('Basic - Introduction', async ({ page }) => {
+  test('Basic - Introduction', async ({ page }) => {
     await page.goto('https://dotunpeters.matchingday.com/')
     await page.getByRole('button').click()
     await page.getByRole('link', { name: 'Sign in' }).click()
@@ -85,27 +85,25 @@ test.describe.parallel('Building the profile', () => {
       .getByRole('button', { name: 'Google Icon Continue with Google' })
       .click()
     await page.getByLabel('Email or phone').click()
-    await page.getByLabel('Email or phone').type('david.damian@10hourlabs.com', {delay: 200})
+    await page
+      .getByLabel('Email or phone')
+      .type('david.damian@10hourlabs.com', { delay: 200 })
     await page.getByRole('button', { name: 'Next' }).click()
     await page.getByLabel('Enter your password').click()
-    await page.getByLabel('Enter your password').type('D3YS6%gy', {delay: 200})
+    await page
+      .getByLabel('Enter your password')
+      .type('D3YS6%gy', { delay: 200 })
     await page.getByRole('button', { name: 'Next' }).click()
     await page.waitForTimeout(10000)
-    await page.locator('//*[@id="__next"]/div/div/div[3]/div[2]/button').click({force: true})
+    await page
+      .locator('//*[@id="__next"]/div/div/div[3]/div[2]/button')
+      .click({ force: true })
+    await page.waitForTimeout(1000)
+    // Introduction
+    await page.locator('//*[@id="mantine-izhl08hlb-panel-basic"]/div[2]/div[2]').click({force: true})
+    await page.locator('//*[@id="mantine-izhl08hlb-panel-basic"]/div[2]/div[2]/textarea').fill('Hi there!')
 
-    // // Introduction
-    // const textArea = page.locator(
-    //   '//*[@id="mantine-gh5mw5f7c-panel-basic"]/div[2]/div[2]/textarea',
-    // )
-    // await textArea.click({ force: true })
-    // // await page.getByRole('textbox').fill('Hi there! This is my introduction')
-    // await page
-    //   .getByLabel(
-    //     'Write a brief introduction so that Surrogates can quickly get to know you.  The limit is 500 characters.',
-    //   )
-    //   .fill('Hi there! This is my introduction')
-
-    // //saving...
+    //saving...
     // await page.getByRole('button', { name: 'Save' }).click()
     // await page.waitForTimeout(10000)
 
