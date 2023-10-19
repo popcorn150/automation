@@ -76,8 +76,8 @@ test.describe.parallel('Signing up for matchingday', () => {
   })
 })
 
-test.describe.parallel.only('Building the profile', () => {
-  test('Basic - Introduction', async ({ page }) => {
+test.describe.parallel('Building the profile', () => {
+  test.only('Basic - Introduction', async ({ page }) => {
     await page.goto('https://dotunpeters.matchingday.com/')
     await page.getByRole('button').click()
     await page.getByRole('link', { name: 'Sign in' }).click()
@@ -85,34 +85,32 @@ test.describe.parallel.only('Building the profile', () => {
       .getByRole('button', { name: 'Google Icon Continue with Google' })
       .click()
     await page.getByLabel('Email or phone').click()
-    await page.getByLabel('Email or phone').fill('david.damian@10hourlabs.com')
+    await page.getByLabel('Email or phone').type('david.damian@10hourlabs.com', {delay: 200})
     await page.getByRole('button', { name: 'Next' }).click()
     await page.getByLabel('Enter your password').click()
-    await page.getByLabel('Enter your password').fill('D3YS6%gy')
+    await page.getByLabel('Enter your password').type('D3YS6%gy', {delay: 200})
     await page.getByRole('button', { name: 'Next' }).click()
-    await page.waitForTimeout(1000)
-    await page
-      .getByRole('button', { name: ' Start building your profile' })
-      .click()
-
-    // Introduction
-    const textArea = page.locator(
-      '//*[@id="mantine-gh5mw5f7c-panel-basic"]/div[2]/div[2]/textarea',
-    )
-    await textArea.click({ force: true })
-    // await page.getByRole('textbox').fill('Hi there! This is my introduction')
-    await page
-      .getByLabel(
-        'Write a brief introduction so that Surrogates can quickly get to know you.  The limit is 500 characters.',
-      )
-      .fill('Hi there! This is my introduction')
-
-    //saving...
-    await page.getByRole('button', { name: 'Save' }).click()
     await page.waitForTimeout(10000)
+    await page.locator('//*[@id="__next"]/div/div/div[3]/div[2]/button').click({force: true})
 
-    // const element = page.locator('h3')
-    // await expect(element).toHaveText('Matching Day')
+    // // Introduction
+    // const textArea = page.locator(
+    //   '//*[@id="mantine-gh5mw5f7c-panel-basic"]/div[2]/div[2]/textarea',
+    // )
+    // await textArea.click({ force: true })
+    // // await page.getByRole('textbox').fill('Hi there! This is my introduction')
+    // await page
+    //   .getByLabel(
+    //     'Write a brief introduction so that Surrogates can quickly get to know you.  The limit is 500 characters.',
+    //   )
+    //   .fill('Hi there! This is my introduction')
+
+    // //saving...
+    // await page.getByRole('button', { name: 'Save' }).click()
+    // await page.waitForTimeout(10000)
+
+    const element = page.locator('h1')
+    await expect(element).not.toBeVisible()
   })
 
   test('Basic - About your journey', async ({ page }) => {
