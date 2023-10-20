@@ -234,30 +234,40 @@ test.describe.parallel('Building the profile', () => {
       .click()
     await page.getByLabel('Email or phone').click()
     await page.getByLabel('Email or phone').fill('david.damian@10hourlabs.com')
-    await page.getByRole('button', { name: 'Next' }).click()
+    await page.getByLabel('Email or phone').press('Enter')
     await page.getByLabel('Enter your password').click()
     await page.getByLabel('Enter your password').fill('D3YS6%gy')
-    await page.getByRole('button', { name: 'Next' }).click()
+    await page.getByLabel('Enter your password').press('Enter')
     await page.waitForTimeout(1000)
 
     // Agency Information
-    await page.getByRole('button', { name: 'Edit' }).click()
+    await page
+      .locator('div')
+      .filter({ hasText: /^Agency informationEdit$/ })
+      .getByRole('button')
+      .click()
 
     // Are you open to matching with an independent surrogate
-    await page.locator('#mantine-m8a3yocse').selectOption('No')
+    await page.locator('#mantine-yj5kgnjcr').click()
+    await page.getByRole('option', { name: 'No' }).click()
 
     // Are you working with an agency
-    await page.locator('#mantine-ihyyklsw0').selectOption('No')
+    await page.locator('#mantine-84dgjkbxy').click()
+    await page.getByRole('option', { name: 'No' }).click()
 
     // Are you open to agencies contacting you
-    await page.locator('#mantine-ihvm7vp4q').fill('No')
+    await page.locator('#mantine-hu28hyi1s').click();
+    await page.getByRole('option', { name: 'No' }).click();
 
     // Are you open to matching with a surrogate who is with an agency
-    await page.locator('#mantine-mh2r4oj4f').selectOption('No')
+    await page.locator('#mantine-unn3ey3ft').click();
+    await page.getByRole('option', { name: 'No' }).click();
 
     //saving...
-    await page.getByRole('button', { name: 'Save' }).click()
-    await page.waitForTimeout(10000)
+    await page.getByRole('button', { name: 'Save' }).click();
+
+    const element = page.locator('h1')
+    await expect(element).not.toBeVisible()
   })
 
   test('Basic - Relationship[Married]', async ({ page }) => {
