@@ -387,21 +387,25 @@ test.describe.parallel('Building the profile', () => {
       .click()
     await page.getByLabel('Email or phone').click()
     await page.getByLabel('Email or phone').fill('david.damian@10hourlabs.com')
-    await page.getByRole('button', { name: 'Next' }).click()
+    await page.getByLabel('Email or phone').press('Enter');
     await page.getByLabel('Enter your password').click()
     await page.getByLabel('Enter your password').fill('D3YS6%gy')
-    await page.getByRole('button', { name: 'Next' }).click()
+    await page.getByLabel('Enter your password').press('Enter');
     await page.waitForTimeout(1000)
 
     // Your story
-    await page.getByRole('button', { name: 'Edit' }).click()
+    await page.getByRole('menuitem', { name: 'Edit' }).click();
 
-    //Write your story
-    await page.getByRole('textbox').fill('Hi there! This is my story!')
+    // Write your story
+    await page.getByLabel('Basic').locator('div').filter({ hasText: 'Your storyEditUse this space to write out your story. Surrogates often feel a co' }).getByRole('button').click();
+    await page.locator('.tiptap').click();
+    await page.locator('.tiptap').fill('Hi there! This is my story.');
 
     //saving...
-    await page.getByRole('button', { name: 'Save' }).click()
-    await page.waitForTimeout(10000)
+    await page.getByRole('button', { name: 'Save' }).click();
+
+    const element = page.locator('h1')
+    await expect(element).not.toBeVisible()
   })
 
   test('Basic - Matching Information', async ({ page }) => {
