@@ -256,15 +256,15 @@ test.describe.parallel('Building the profile', () => {
     await page.getByRole('option', { name: 'No' }).click()
 
     // Are you open to agencies contacting you
-    await page.locator('#mantine-hu28hyi1s').click();
-    await page.getByRole('option', { name: 'No' }).click();
+    await page.locator('#mantine-hu28hyi1s').click()
+    await page.getByRole('option', { name: 'No' }).click()
 
     // Are you open to matching with a surrogate who is with an agency
-    await page.locator('#mantine-unn3ey3ft').click();
-    await page.getByRole('option', { name: 'No' }).click();
+    await page.locator('#mantine-unn3ey3ft').click()
+    await page.getByRole('option', { name: 'No' }).click()
 
     //saving...
-    await page.getByRole('button', { name: 'Save' }).click();
+    await page.getByRole('button', { name: 'Save' }).click()
 
     const element = page.locator('h1')
     await expect(element).not.toBeVisible()
@@ -286,20 +286,29 @@ test.describe.parallel('Building the profile', () => {
     await page.waitForTimeout(1000)
 
     // Relationship
-    await page.getByRole('button', { name: 'Edit' }).click()
+    await page
+      .locator('div')
+      .filter({ hasText: /^RelationshipEdit$/ })
+      .getByRole('button')
+      .click()
 
     // Relationship status
-    await page.locator('#mantine-msepabtob').selectOption('Married')
+    await page.locator('#mantine-hsoxy3qfu').click()
+    await page.getByRole('option', { name: 'Married' }).click()
 
     // Years togehter
-    await page.locator('#mantine-9xu7e95ik').selectOption('1 to 5 years')
+    await page.getByRole('searchbox').nth(1).click()
+    await page.getByRole('option', { name: '1 to 5 years' }).click()
 
     // Type of couple
-    await page.locator('#mantine-1p9jngkbk').selectOption('Heterosexual')
+    await page.getByRole('searchbox').nth(2).click()
+    await page.getByRole('option', { name: 'Heterosexual' }).click()
 
     //saving...
     await page.getByRole('button', { name: 'Save' }).click()
-    await page.waitForTimeout(10000)
+
+    const element = page.locator('h1')
+    await expect(element).not.toBeVisible()
   })
   test('Basic - Relationship[Single]', async ({ page }) => {
     await page.goto('https://dotunpeters.matchingday.com/')
