@@ -88,36 +88,44 @@ test.describe.parallel('Building the profile', () => {
     await page
       .getByLabel('Email or phone')
       .type('david.damian@10hourlabs.com', { delay: 200 })
-    await page.getByRole('button', { name: 'Next' }).click()
+    await page.getByLabel('Email or phone').press('Enter')
     await page.getByLabel('Enter your password').click()
     await page
       .getByLabel('Enter your password')
       .type('D3YS6%gy', { delay: 200 })
-    await page.getByRole('button', { name: 'Next' }).click()
+    await page.getByLabel('Enter your password').press('Enter')
     await page.waitForTimeout(10000)
+
+    // Start building your profile
     await page
-      .locator('//*[@id="__next"]/div/div/div[3]/div[2]/button')
-      .click({ force: true })
-    await page.waitForTimeout(1000)
+      .getByRole('button', { name: 'Start building your profile' })
+      .first()
+      .click()
+    await page
+      .getByLabel('Basic')
+      .locator('div')
+      .filter({
+        hasText:
+          'Write a brief introduction so that Surrogates can quickly get to know you. The limit is 500 characters.',
+      })
+      .nth(1)
+      .click()
+
     // Introduction
     await page
-      .locator('//*[@id="mantine-izhl08hlb-panel-basic"]/div[2]/div[2]')
-      .click({ force: true })
-    await page
-      .locator(
-        '//*[@id="mantine-izhl08hlb-panel-basic"]/div[2]/div[2]/textarea',
+      .getByPlaceholder(
+        'Write a brief introduction so that Surrogates can quickly get to know you.  The limit is 500 characters.',
       )
-      .fill('Hi there!')
+      .type('Hey there! This is my introduction!', {delay: 100})
 
     //saving...
-    // await page.getByRole('button', { name: 'Save' }).click()
-    // await page.waitForTimeout(10000)
+    await page.getByRole('button', { name: 'Save' }).click()
 
     const element = page.locator('h1')
     await expect(element).not.toBeVisible()
   })
 
-  test.only('Basic - About your journey', async ({ page }) => {
+  test('Basic - About your journey', async ({ page }) => {
     await page.goto('https://dotunpeters.matchingday.com/')
     await page.getByRole('button').click()
     await page.getByRole('link', { name: 'Sign in' }).click()
@@ -142,7 +150,9 @@ test.describe.parallel('Building the profile', () => {
     await page.waitForTimeout(1000)
 
     // About your journey
-    await page.click('//*[@id="mantine-izhl08hlb-panel-basic"]/div[3]/div[1]/div/button')
+    await page.click(
+      '//*[@id="mantine-izhl08hlb-panel-basic"]/div[3]/div[1]/div/button',
+    )
 
     const element = page.locator('h1')
     await expect(element).not.toBeVisible()
