@@ -319,21 +319,28 @@ test.describe.parallel('Building the profile', () => {
       .click()
     await page.getByLabel('Email or phone').click()
     await page.getByLabel('Email or phone').fill('david.damian@10hourlabs.com')
-    await page.getByRole('button', { name: 'Next' }).click()
+    await page.getByLabel('Email or phone').press('Enter')
     await page.getByLabel('Enter your password').click()
     await page.getByLabel('Enter your password').fill('D3YS6%gy')
-    await page.getByRole('button', { name: 'Next' }).click()
+    await page.getByLabel('Enter your password').press('Enter')
     await page.waitForTimeout(1000)
 
     // Relationship
-    await page.getByRole('button', { name: 'Edit' }).click()
+    await page
+      .locator('div')
+      .filter({ hasText: /^RelationshipEdit$/ })
+      .getByRole('button')
+      .click()
 
     // Relationship status
-    await page.locator('#mantine-msepabtob').selectOption('Single')
+    await page.locator('#mantine-hsoxy3qfu').click()
+    await page.getByRole('option', { name: 'Single' }).click()
 
     //saving...
     await page.getByRole('button', { name: 'Save' }).click()
-    await page.waitForTimeout(10000)
+
+    const element = page.locator('h1')
+    await expect(element).not.toBeVisible()
   })
 
   test('Basic - Clinic', async ({ page }) => {
