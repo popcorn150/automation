@@ -116,7 +116,7 @@ test.describe.parallel('Building the profile', () => {
       .getByPlaceholder(
         'Write a brief introduction so that Surrogates can quickly get to know you.  The limit is 500 characters.',
       )
-      .type('Hey there! This is my introduction!', {delay: 100})
+      .type('Hey there! This is my introduction!', { delay: 100 })
 
     //saving...
     await page.getByRole('button', { name: 'Save' }).click()
@@ -136,24 +136,42 @@ test.describe.parallel('Building the profile', () => {
     await page
       .getByLabel('Email or phone')
       .type('david.damian@10hourlabs.com', { delay: 200 })
-    await page.getByRole('button', { name: 'Next' }).click()
+    await page.getByLabel('Email or phone').press('Enter')
     await page.getByLabel('Enter your password').click()
     await page
       .getByLabel('Enter your password')
       .type('D3YS6%gy', { delay: 200 })
-    await page.getByRole('button', { name: 'Next' }).click()
+    await page.getByLabel('Enter your password').press('Enter')
     await page.waitForTimeout(10000)
 
-    await page
-      .locator('//*[@id="__next"]/div/div/div[3]/div[2]/button')
-      .click({ force: true })
-    await page.waitForTimeout(1000)
-
     // About your journey
-    await page.click(
-      '//*[@id="mantine-izhl08hlb-panel-basic"]/div[3]/div[1]/div/button',
-    )
-
+    await page
+      .getByRole('button', { name: 'Start building your profile' })
+      .first()
+      .click()
+    await page
+      .locator('div')
+      .filter({ hasText: /^About your journeyEdit$/ })
+      .getByRole('button')
+      .click()
+    await page.locator('#mantine-ypm7rahx9').click()
+    // Type of
+    await page.getByRole('option', { name: 'Traditional' }).click()
+    await page.getByRole('searchbox').nth(1).click()
+    // Child
+    await page.getByRole('option', { name: 'First Child' }).click()
+    await page.locator('#mantine-euhn1jke0').click()
+    // Years of
+    await page.getByRole('option', { name: 'Less than a year' }).click()
+    await page.locator('#mantine-hcf3r577k').click()
+    // Egg donor
+    await page.getByRole('option', { name: 'No', exact: true }).click()
+    // Embryo Info
+    await page.getByPlaceholder('Embryo Information').click()
+    await page.getByPlaceholder('Embryo Information').fill('Blah Blah Blah')
+    // Saving...
+    await page.getByRole('button', { name: 'Save' }).click()
+    
     const element = page.locator('h1')
     await expect(element).not.toBeVisible()
   })
