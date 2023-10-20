@@ -352,25 +352,30 @@ test.describe.parallel('Building the profile', () => {
       .click()
     await page.getByLabel('Email or phone').click()
     await page.getByLabel('Email or phone').fill('david.damian@10hourlabs.com')
-    await page.getByRole('button', { name: 'Next' }).click()
+    await page.getByLabel('Email or phone').press('Enter');
     await page.getByLabel('Enter your password').click()
     await page.getByLabel('Enter your password').fill('D3YS6%gy')
-    await page.getByRole('button', { name: 'Next' }).click()
-    await page.waitForTimeout(1000)
+    await page.getByLabel('Enter your password').press('Enter');
+    await page.waitForTimeout(10000)
 
     // Clinic
-    await page.getByRole('button', { name: 'Edit' }).click()
+    await page.getByRole('menuitem', { name: 'Edit' }).click();
+    await page.locator('div').filter({ hasText: /^ClinicEdit$/ }).getByRole('button').click();
 
     // Clinic name
-    await page.getByRole('textbox').fill('Banana Clinic')
+    await page.getByPlaceholder('Clinic Name').click();
+    await page.getByPlaceholder('Clinic Name').fill('Banana Clinic');
 
     // Clinic address
-    await page.getByRole('textbox').type('Bahamas', { delay: 100 })
-    await page.locator('#mantine-2mngt42h0').selectOption('Bahamas')
+     await page.getByRole('searchbox').click();
+     await page.getByRole('searchbox').fill('Baha');
+     await page.getByRole('option', { name: 'Bahamas' }).click();
 
     //saving...
-    await page.getByRole('button', { name: 'Save' }).click()
-    await page.waitForTimeout(10000)
+    await page.getByRole('button', { name: 'Save' }).click();
+
+    const element = page.locator('h1')
+    await expect(element).not.toBeVisible()
   })
 
   test('Basic - Your story', async ({ page }) => {
