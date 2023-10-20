@@ -155,18 +155,18 @@ test.describe.parallel('Building the profile', () => {
       .getByRole('button')
       .click()
     await page.locator('#mantine-ypm7rahx9').click()
-    // Type of
+    // Type of surrogacy
     await page.getByRole('option', { name: 'Traditional' }).click()
     await page.getByRole('searchbox').nth(1).click()
-    // Child
+    // Type of jouney
     await page.getByRole('option', { name: 'First Child' }).click()
     await page.locator('#mantine-euhn1jke0').click()
-    // Years of
+    // How many years have you been looking for a surrogate
     await page.getByRole('option', { name: 'Less than a year' }).click()
     await page.locator('#mantine-hcf3r577k').click()
-    // Egg donor
+    // Egg donor required
     await page.getByRole('option', { name: 'No', exact: true }).click()
-    // Embryo Info
+    // Embryo Information
     await page.getByPlaceholder('Embryo Information').click()
     await page.getByPlaceholder('Embryo Information').fill('Blah Blah Blah')
     // Saving...
