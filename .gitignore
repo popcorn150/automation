@@ -7,3 +7,26 @@ Using config method to run test
 Using config method to run specific test
 ##
 [npx playwright test test/matchingday.spec.ts --config=playwright.config.ts --project=firefox]
+
+
+
+    // Type of surrogacy
+    // // mantine-Input-input mantine-Select-input mantine-1cn2mlo (incase the selectorS doesn't works)
+    // await page.locator('#mantine-15nce71ep').selectOption('Traditional')
+
+    // // Type of journey
+    // await page.locator('#mantine-avyop31kl').selectOption('First Child')
+
+    // // How long have you been looking for a surrogate
+    // await page.locator('#mantine-0ti71hkpn').selectOption('1 to 3 years')
+
+    // // Egg donor required
+    // await page.locator('#mantine-eqs2h73gz').selectOption('Yes')
+
+    // // Embryo Information
+    // await page.getByRole('textbox').fill('Imma give ya my embryo info later')
+
+    // //saving...
+    // await page.getByRole('button', { name: 'Save' }).click()
+
+Note: Don't forget to change the selectors to xpath.
