@@ -76,7 +76,7 @@ test.describe.parallel('Signing up for matchingday', () => {
   })
 })
 
-test.describe.parallel('Building the profile', () => {
+test.describe.parallel('Making the profile look beautiful', () => {
   test('Basic - Introduction', async ({ page }) => {
     await page.goto('https://dotunpeters.matchingday.com/')
     await page.getByRole('button').click()
